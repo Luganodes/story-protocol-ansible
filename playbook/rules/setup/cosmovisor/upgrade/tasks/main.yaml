@@ -1,0 +1,24 @@
+- name: Force uppgrade using Cosmovisor
+  ansible.builtin.command: 
+    cmd: cosmovisor add-upgrade {{ story_node_binary_version }} /home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}/story --force --upgrade-height {{ story_node_upgrade_height }}
+  environment:
+    STORY_DATA_ROOT: "/home/{{ ansible_user }}/.story/story"
+    DAEMON_HOME: "/home/{{ ansible_user }}/.story/story"
+    DAEMON_NAME: "story"
+    DAEMON_DATA_BACKUP_DIR: "/home/{{ ansible_user }}/.story/cosmovisor_backup"
+  changed_when: false
+  register: force_upgrade
+
+- name: Display the contents of force_upgrade
+  ansible.builtin.debug:
+    msg: "{{ force_upgrade.stdout_lines }}"
+
+
+- name: Cat the upgrade-info.json file
+  ansible.builtin.command:
+    cmd: cat /home/{{ ansible_user }}/.story/story/data/upgrade-info.json
+  register: upgrade_info_output
+
+- name: Display the contents of upgrade-info.json
+  ansible.builtin.debug:
+    msg: "{{ upgrade_info_output.stdout_lines }}"

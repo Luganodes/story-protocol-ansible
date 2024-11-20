@@ -1,0 +1,7 @@
+- name: Setup Story protocol node 
+  hosts: all 
+  roles: 
+    - rules/setup/prerequisite
+    - rules/run/stop
+    - rules/downloads/geth
+    - rules/run/restart
