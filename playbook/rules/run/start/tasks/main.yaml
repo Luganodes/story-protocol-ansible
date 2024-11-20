@@ -1,0 +1,9 @@
+
+- name: Start Geth and Cosmovisor services 
+  become: true
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started 
+  loop: 
+    - "{{ geth_service_name }}"
+    - "{{ cosmovisor_service_name }}"

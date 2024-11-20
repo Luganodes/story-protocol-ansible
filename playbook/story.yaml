@@ -1,0 +1,12 @@
+- name: Setup Story protocol node 
+  hosts: all 
+  roles: 
+    - rules/setup/prerequisite
+    - rules/setup/firewalld
+    - rules/downloads/geth
+    - rules/downloads/cosmovisor
+    - rules/downloads/node
+    - rules/setup/geth
+    - rules/setup/node
+    - rules/setup/cosmovisor
+    - rules/run/start

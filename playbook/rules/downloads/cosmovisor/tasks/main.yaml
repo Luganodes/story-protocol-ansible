@@ -1,0 +1,25 @@
+
+- name: Create Cosmovisor download directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.story/downloads/cosmovisor/{{ cosmovisor_binary_version }}"
+    state: directory
+    mode: "0750"
+
+- name: Download Cosmovisor binary
+  ansible.builtin.get_url:
+    url: "{{ cosmovisor_binary_url }}"
+    dest: "/home/{{ ansible_user }}/.story/downloads/cosmovisor/{{ cosmovisor_binary_version }}"
+    backup: yes
+    validate_certs: yes
+    timeout: 60
+
+- name: Extract tar.gz archive
+  become: true
+  ansible.builtin.unarchive:
+    src: "/home/{{ ansible_user }}/.story/downloads/cosmovisor/{{ cosmovisor_binary_version }}/{{ cosmovisor_archive_file_name }}"
+    dest: "/usr/local/bin/"
+    remote_src: true
+
+
+
+

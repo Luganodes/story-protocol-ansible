@@ -1,0 +1,4 @@
+- name: Setup Story protocol node 
+  hosts: all 
+  roles: 
+    - rules/run/stop

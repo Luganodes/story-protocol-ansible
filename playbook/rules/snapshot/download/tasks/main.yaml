@@ -1,0 +1,23 @@
+- name: Create Snapshot download directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.story/snapshot"
+    state: directory
+    mode: "0750"
+
+- name: Run tmux command in a new session to download geth snapshot
+  ansible.builtin.command:
+    cmd: >
+      tmux new-session -d -s snapshot-geth
+      'aria2c -x16 -s16 --out=latest_geth_snapshot.tar.gz {{ story_geth_snapshot_url }};
+      exec bash'
+  args:
+    chdir: "/home/{{ ansible_user }}/.story/snapshot"
+
+- name: Run tmux command in a new session to download story snapshot
+  ansible.builtin.command:
+    cmd: >
+      tmux new-session -d -s snapshot-story
+      'aria2c -x16 -s16 --out=latest_story_snapshot.tar.gz {{ story_node_snapshot_url }};
+      exec bash'
+  args:
+    chdir: "/home/{{ ansible_user }}/.story/snapshot"

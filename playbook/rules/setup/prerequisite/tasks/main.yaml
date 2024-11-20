@@ -1,0 +1,11 @@
+
+- name: Ensure required tools are installed
+  ansible.builtin.package:
+    name:
+      - curl
+      - tmux
+      - jq
+      - lz4
+      - unzip
+      - aria2
+    state: present

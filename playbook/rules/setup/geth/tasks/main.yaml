@@ -1,0 +1,6 @@
+- name: Copy geth systemd service template
+  ansible.builtin.template:
+    src: "geth.service.j2"
+    dest: "/etc/systemd/system/geth.service"
+    mode: '0644'
+  become: true

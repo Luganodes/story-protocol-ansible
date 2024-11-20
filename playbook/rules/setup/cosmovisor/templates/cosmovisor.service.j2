@@ -1,0 +1,17 @@
+[Unit]
+Description= Story node for story protocol (Consensus Layer) 
+
+[Service]
+User={{ ansible_user }}
+Group={{ ansible_user }}
+WorkingDirectory=/home/{{ ansible_user }}
+Environment="STORY_DATA_ROOT=/home/{{ ansible_user }}/.story/story"
+Environment="DAEMON_HOME=/home/{{ ansible_user }}/.story/story"
+Environment="DAEMON_NAME=story"
+Environment="DAEMON_DATA_BACKUP_DIR=/home/{{ ansible_user }}/.story/cosmovisor_backup"
+ExecStart=/usr/local/bin/cosmovisor run run  
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

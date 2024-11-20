@@ -1,0 +1,12 @@
+[Unit]
+Description= Geth node for story protocol (EVM Layer) 
+
+[Service]
+User={{ ansible_user }}
+Group={{ ansible_user }}
+ExecStart=/usr/local/bin/geth --odyssey --syncmode full 
+Restart=on-failure
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

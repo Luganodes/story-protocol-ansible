@@ -1,0 +1,29 @@
+- name: Install firewalld
+  become: true
+  package:
+    name: firewalld
+    state: present
+
+
+- name: Ensure firewalld is running and enabled
+  become: true
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: Open port 30303/tcp
+  become: true
+  firewalld:
+    port: 30303/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Open port 26656/tcp
+  become: true
+  firewalld:
+    port: 26656/tcp
+    permanent: yes
+    state: enabled
+    immediate: yes

@@ -1,0 +1,40 @@
+- name: Kill snapshot tmux sessions by name
+  ansible.builtin.command:
+    cmd: tmux kill-session -t snapshot-{{ item }}
+  with_items:
+    - geth
+    - story
+  ignore_errors: true
+
+
+- name: Backup priv_validator_state.json
+  ansible.builtin.copy:
+    src: /home/{{ ansible_user }}/.story/story/data/priv_validator_state.json
+    dest: /home/{{ ansible_user }}/.story/story/priv_validator_state.json.backup
+    remote_src: yes
+
+- name: Removing old Story data 
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.story/story/data"
+    state: absent
+
+- name: Unpacking the downloaded snapshots for consensus  
+  ansible.builtin.shell: 
+    cmd: lz4 -dc /home/{{ ansible_user }}/.story/snapshot/latest_story_snapshot.tar.gz | tar -xf - -C /home/{{ ansible_user }}/.story/story/
+
+
+- name: Restoring priv_validator_state.json file 
+  ansible.builtin.copy:
+    src: /home/{{ ansible_user }}/.story/story/priv_validator_state.json.backup
+    dest: /home/{{ ansible_user }}/.story/story/data/priv_validator_state.json
+    remote_src: yes
+
+- name: Removing old Geth data 
+  ansible.builtin.file:
+    path: /home/{{ ansible_user }}/.story/geth/{{ story_network_name }}/geth/chaindata
+    state: absent
+
+- name: Unpacking the downloaded snapshots for geth  
+  ansible.builtin.shell: 
+    cmd: lz4 -dc /home/{{ ansible_user }}/.story/snapshot/latest_geth_snapshot.tar.gz | tar -xf - -C /home/{{ ansible_user }}/.story/geth/{{ story_network_name }}/geth/
+

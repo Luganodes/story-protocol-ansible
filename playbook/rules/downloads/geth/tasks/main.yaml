@@ -1,0 +1,26 @@
+
+- name: Create Geth download directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.story/downloads/story-geth/{{ story_geth_binary_version }}"
+    state: directory
+    mode: "0750"
+
+- name: Download Geth binary
+  ansible.builtin.get_url:
+    url: "{{ story_geth_binary_url }}"
+    dest: "/home/{{ ansible_user }}/.story/downloads/story-geth/{{ story_geth_binary_version }}"
+    mode: "0750"
+    backup: yes
+    validate_certs: yes
+    timeout: 60
+
+- name: Install Geth binary to system
+  become: true
+  ansible.builtin.copy:
+    src: "/home/{{ ansible_user }}/.story/downloads/story-geth/{{ story_geth_binary_version }}/geth-linux-amd64"
+    dest: "/usr/local/bin/geth"
+    mode: "0755"
+    remote_src: yes
+
+
+

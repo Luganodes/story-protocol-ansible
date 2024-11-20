@@ -1,0 +1,12 @@
+
+- name: Stop Geth and Cosmovisor services 
+  become: true
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: stopped 
+  loop: 
+    - "{{ cosmovisor_service_name }}"
+    - "{{ geth_service_name }}"
+  
+
+  # 2b1da002d8717cb909a2af354caf9ddf2b3e125ada6531858cdcb90adec83f6b

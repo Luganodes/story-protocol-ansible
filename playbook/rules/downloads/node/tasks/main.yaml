@@ -1,0 +1,33 @@
+
+- name: Create Node download directory
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}"
+    state: directory
+    mode: "0750"
+
+- name: Download Node binary
+  ansible.builtin.get_url:
+    url: "{{ story_node_binary_url }}"
+    dest: "/home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}"
+    mode: "0750"
+    backup: yes
+    validate_certs: yes
+    timeout: 60
+
+- name: Copying (for rename) Node binary to system
+  become: true
+  ansible.builtin.copy:
+    src: "/home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}/story-linux-amd64"
+    dest: "/home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}/story"
+    mode: "0755"
+    remote_src: yes
+
+- name: Removing excess files
+  become: true
+  ansible.builtin.file:
+    path: "/home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}/story-linux-amd64"
+    state: absent
+
+
+
+

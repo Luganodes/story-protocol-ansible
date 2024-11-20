@@ -1,0 +1,7 @@
+- name: Snapshot download Story protocol  
+  hosts: all 
+  roles: 
+    - rules/setup/prerequisite
+    - rules/run/stop
+    - rules/snapshot/extract
+    - rules/run/restart

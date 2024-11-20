@@ -1,0 +1,16 @@
+- name: Setup Story protocol node 
+  hosts: all 
+  tasks:
+    - name: Create directory for upgrade binary binary
+      ansible.builtin.file:
+        path: "/home/{{ ansible_user ))/.story/story/cosmovisor/upgrades/{{ story_node_binary_version }}/bin/"
+        state: directory
+        mode: "0755"
+
+    - name: Copying Node binary to the upgrade location
+      become: true
+      ansible.builtin.copy:
+        src: "/home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}/story"
+        dest: "/home/{{ ansible_user ))/.story/story/cosmovisor/upgrades/{{ story_node_binary_version }}/bin/"
+        mode: "0755"
+        remote_src: yes
