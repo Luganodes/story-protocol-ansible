@@ -4,20 +4,22 @@
     state: directory
     mode: "0750"
 
-- name: Run tmux command in a new session to download geth snapshot
-  ansible.builtin.command:
-    cmd: >
-      tmux new-session -d -s snapshot-geth
-      'aria2c -x16 -s16 --out=latest_geth_snapshot.tar.gz {{ story_geth_snapshot_url }};
-      exec bash'
+- name: Download geth snapshot asynchronously
+  ansible.builtin.shell: >
+    nohup aria2c -x16 -s16 --out=latest_geth_snapshot.tar.gz {{ story_geth_snapshot_url }} </dev/null >/home/{{ ansible_user }}/.story/snapshot/geth_download.log 2>&1 &
   args:
     chdir: "/home/{{ ansible_user }}/.story/snapshot"
+    creates: "/home/{{ ansible_user }}/.story/snapshot/latest_geth_snapshot.tar.gz"
+  async: 86400  # 24 hours async time 
+  poll: 0
 
-- name: Run tmux command in a new session to download story snapshot
-  ansible.builtin.command:
-    cmd: >
-      tmux new-session -d -s snapshot-story
-      'aria2c -x16 -s16 --out=latest_story_snapshot.tar.gz {{ story_node_snapshot_url }};
-      exec bash'
+
+- name: Download story snapshot asynchronously
+  ansible.builtin.shell: >
+    nohup aria2c -x16 -s16 --out=latest_story_snapshot.tar.gz {{ story_node_snapshot_url }} </dev/null >/home/{{ ansible_user }}/.story/snapshot/story_download.log 2>&1 &
   args:
     chdir: "/home/{{ ansible_user }}/.story/snapshot"
+    creates: "/home/{{ ansible_user }}/.story/snapshot/latest_story_snapshot.tar.gz"
+  async: 86400  # 24 hours async time 
+  poll: 0
+

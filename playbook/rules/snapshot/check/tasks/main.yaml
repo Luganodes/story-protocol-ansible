@@ -1,0 +1,17 @@
+- name: Checking geth snapshot for Download Status 
+  ansible.builtin.command:
+    cmd: tail -n 15 /home/{{ ansible_user}}/.story/snapshot/geth_download.log
+  register: geth_download_status
+
+- name: Checking story snapshot for Download Status 
+  ansible.builtin.command:
+    cmd: tail -n 15 /home/{{ ansible_user}}/.story/snapshot/story_download.log
+  register: story_download_status
+
+- name: Geth download status 
+  ansible.builtin.debug:
+    msg: "{{ geth_download_status.stdout_lines }}"
+
+- name: Story download status 
+  ansible.builtin.debug:
+    msg: "{{ story_download_status.stdout_lines }}"

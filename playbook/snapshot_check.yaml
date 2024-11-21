@@ -1,0 +1,4 @@
+- name: Download status Story protocol snapshots 
+  hosts: all 
+  roles: 
+    - rules/snapshot/check

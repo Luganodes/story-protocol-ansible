@@ -5,8 +5,6 @@
     state: directory
     mode: "0750"
 
-
-
 - name: Initialize Cosmovisor
   ansible.builtin.command: 
     cmd: cosmovisor init /home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}/story

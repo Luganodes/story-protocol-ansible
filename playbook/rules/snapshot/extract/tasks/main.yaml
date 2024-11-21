@@ -1,11 +1,3 @@
-- name: Kill snapshot tmux sessions by name
-  ansible.builtin.command:
-    cmd: tmux kill-session -t snapshot-{{ item }}
-  with_items:
-    - geth
-    - story
-  ignore_errors: true
-
 
 - name: Backup priv_validator_state.json
   ansible.builtin.copy:

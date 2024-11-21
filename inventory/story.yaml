@@ -7,8 +7,8 @@ story:
     cosmovisor_binary_url: https://github.com/cosmos/cosmos-sdk/releases/download/cosmovisor%2Fv1.7.0/cosmovisor-v1.7.0-linux-amd64.tar.gz
     story_geth_binary_url: https://github.com/piplabs/story-geth/releases/download/v0.10.1/geth-linux-amd64 
     story_node_binary_url: https://github.com/piplabs/story/releases/download/v0.13.0/story-linux-amd64
-    story_geth_snapshot_url: # mention latest story-geth snapshot url here 
-    story_node_snapshot_url: # mention latest story snapshot url here  
+    story_geth_snapshot_url: https://server-3.itrocket.net/testnet/story/geth_story_2024-11-21_713429_snap.tar.lz4
+    story_node_snapshot_url: https://server-3.itrocket.net/testnet/story/story_2024-11-21_713429_snap.tar.lz4   
     story_geth_binary_version: v0.10.1
     story_node_binary_version: v0.13.0 
     cosmovisor_binary_version: v1.7.0
@@ -19,5 +19,5 @@ story:
     
   hosts:
     story-odyssey-testnet: 
-      ansible_host:  # mention your host here 
-      ansible_user:  # mention your host here 
+      ansible_host:  story-protocol-testnet-rpc-muted-witness-ovh-lim3
+      ansible_user:  luga
