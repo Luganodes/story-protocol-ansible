@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Ansible
+*.retry
+*.log
+*.out
+
+# SSH keys or secrets
+*.pem
+*.key
+*.pub
+*.gpg
+secrets/
+vault_password.txt
+
+# Environment files
+.env
+.env.*
+
+# Python virtual environment
+venv/
+.venv/
+
+# macOS system files
+.DS_Store
+
+# Editor directories and files
+.vscode/
+.idea/
+*.swp
+*~
+
+# Roles or Galaxy downloads (if any)
+roles/
+collections/
+
+# Backup files
+*.bak
+*.orig
+
+# Terraform (if applicable in future)
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Local scripts/output
+tmp/
+logs/
+output/
