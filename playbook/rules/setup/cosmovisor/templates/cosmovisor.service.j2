@@ -1,5 +1,5 @@
 [Unit]
-Description= Story node for story protocol (Consensus Layer) 
+Description= Story node for story protocol (Consensus Layer)
 
 [Service]
 User={{ ansible_user }}
@@ -9,9 +9,14 @@ Environment="STORY_DATA_ROOT=/home/{{ ansible_user }}/.story/story"
 Environment="DAEMON_HOME=/home/{{ ansible_user }}/.story/story"
 Environment="DAEMON_NAME=story"
 Environment="DAEMON_DATA_BACKUP_DIR=/home/{{ ansible_user }}/.story/cosmovisor_backup"
-ExecStart=/usr/local/bin/cosmovisor run run  
+ExecStart=/usr/local/bin/cosmovisor run run \
+  --api-enable \
+  --api-address=0.0.0.0:1317
 Restart=on-failure
 RestartSec=60
+StartLimitInterval=0
+LimitNOFILE=65536
+LimitNPROC=65536
 
 [Install]
 WantedBy=multi-user.target

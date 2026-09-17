@@ -2,7 +2,7 @@
   ansible.builtin.command:
     cmd: >
       /home/{{ ansible_user }}/.story/downloads/story-node/{{ story_node_binary_version }}/story
-      init --network {{ story_network_name }} --moniker {{ moniker }}
+      init --network story --moniker {{ moniker }}
   register: story_init_result
 
 - name: Consensus initialization output (for confirmation)

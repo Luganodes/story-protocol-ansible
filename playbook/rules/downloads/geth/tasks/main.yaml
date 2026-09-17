@@ -17,10 +17,7 @@
 - name: Install Geth binary to system
   become: true
   ansible.builtin.copy:
-    src: "/home/{{ ansible_user }}/.story/downloads/story-geth/{{ story_geth_binary_version }}/geth-linux-amd64"
+    src: "/home/{{ ansible_user }}/.story/downloads/story-geth/{{ story_geth_binary_version }}/geth-linux-amd64-v1.2.3"
     dest: "/usr/local/bin/geth"
     mode: "0755"
     remote_src: yes
-
-
-

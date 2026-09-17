@@ -1,6 +1,6 @@
-- name: Setup Story protocol node 
-  hosts: all 
-  roles: 
+- name: Setup Story protocol node
+  hosts: all
+  roles:
     - rules/setup/prerequisite
     - rules/setup/firewalld
     - rules/downloads/geth
